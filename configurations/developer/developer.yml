@@ -1,0 +1,5 @@
+parser_system:
+  enabled: true
+  parsers:
+    templator:
+      enabled: true

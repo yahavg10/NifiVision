@@ -11,7 +11,6 @@ def main():
     parsed_metrics = parser.parse(raw_metrics)
     trained_model = trainer.train(parsed_metrics)
     analyzer.analyze(trained_model, X=parsed_metrics)
-    x = 1
 
 
 if __name__ == "__main__":

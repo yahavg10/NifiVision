@@ -21,7 +21,9 @@ class IoCContainer:
             self.services[service_name] = service_instance
 
     def get_service(self, service_name: str) -> Any:
-        return self.services.get(service_name)
+        for service in self.services.keys():
+            if service_name in service:
+                return self.services.get(service)
 
     def register_class(self, service_instance):
         for attr_name in dir(service_instance):

@@ -1,9 +1,12 @@
+import logging
+import os
 from typing import List, Dict, Any
 
 from prometheus_api_client import PrometheusConnect
 
 from configurations.developer.models import PrometheusConfig
 from src.utils.annotations import Service
+logger = logging.getLogger(os.getenv("ENV"))
 
 
 @Service
@@ -16,6 +19,9 @@ class PrometheusDataSource:
             if prometheus_config.tls_config
             else True
         )
+        if not self.prometheus.check_prometheus_connection():
+            logger.error("Prometheus data source cant be reached")
+            raise ConnectionError
         self.query = prometheus_config.query
 
     def get_metrics(self, query: str = None) -> List[Dict[str, Any]]:

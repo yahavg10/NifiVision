@@ -79,6 +79,8 @@ def create_class_instances(classes: List[Type]) -> List[Any]:
 
 def filter_enabled_instances(instances: List[Any], component_type: str) -> List[Any]:
     component_config = get_component_config_object(component_type)
+    if component_config.enabled is False:
+        return []
     component_settings = get_component_configurations(component_config)
     max_instances = get_instances_limit(component_type)
     enabled_component_instances = get_enabled_instances(instances, component_settings, max_instances)

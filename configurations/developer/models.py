@@ -38,12 +38,13 @@ class TLSConfig(BaseModel):
 class PrometheusConfig(BaseModel):
     enabled: bool
     url: HttpUrl
-    query_timeout: str = Field(pattern=r"^\d+[smhd]$")  # Supports 30s, 1m, 1h formats
+    query_timeout: float
     query: str
     tls_config: Optional[TLSConfig]
 
 
 class DataSourceSystemConfig(BaseModel):
+    enabled: bool
     path: str
     datasources: Optional[Dict[str, PrometheusConfig]]
 

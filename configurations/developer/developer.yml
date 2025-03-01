@@ -1,10 +1,11 @@
 datasources:
+  enabled: true
   path: src/components/datasource/strategies
   datasources:
     PrometheusDataSource:
       enabled: true
       url: "http://localhost:9090"
-      query_timeout: 30s
+      query_timeout: 5
       query: sum by (job, component_name) (http_requests_total)
       tls_config:
         insecure_skip_verify: false

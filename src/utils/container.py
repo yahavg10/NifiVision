@@ -25,15 +25,6 @@ class IoCContainer:
             if service_name in service:
                 return self.services.get(service)
 
-    def register_class(self, service_instance):
-        for attr_name in dir(service_instance):
-            method = getattr(service_instance, attr_name)
-
-            if callable(method) and getattr(method, '_is_inject', False):
-                wrapped_method = self._inject_dependencies(method)
-                setattr(service_instance, attr_name, wrapped_method)
-        self.services[service_instance.__class__.__name__] = service_instance
-
     def get_services(self, *service_names) -> List[Any]:
         services = [self.get_service(name) for name in service_names]
         return [service for service in services if service is not None]

@@ -19,9 +19,9 @@ class PrometheusDataSource:
             if prometheus_config.tls_config
             else True
         )
-        if not self.prometheus.check_prometheus_connection():
-            logger.error("Prometheus data source cant be reached")
-            raise ConnectionError
+        # if not self.prometheus.check_prometheus_connection():
+        #     logger.error("Prometheus data source cant be reached")
+        #     raise ConnectionError
         self.query = prometheus_config.query
 
     def get_metrics(self, query: str = None) -> List[Dict[str, Any]]:

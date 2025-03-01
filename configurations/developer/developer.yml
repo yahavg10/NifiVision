@@ -1,0 +1,34 @@
+datasources:
+  enabled: true
+  path: src/components/datasource/strategies
+  datasources:
+    PrometheusDataSource:
+      enabled: true
+      url: "http://localhost:9090"
+      query_timeout: 5
+      query: sum by (job, component_name) (http_requests_total)
+      tls_config:
+        insecure_skip_verify: false
+
+parsers:
+  enabled: true
+  path: src/components/parser/strategies
+  parsers:
+    PrometheusMetricsParser:
+      enabled: true
+
+trainers:
+  enabled: true
+  path: src/components/trainer/strategies
+  trainers:
+    IsolationForestTrainer:
+      enabled: true
+
+analyzers:
+  enabled: true
+  path: src/components/analyzer/strategies
+  analyzers:
+    IsolationForestAnalyzer:
+      enabled: true
+
+

@@ -3,8 +3,8 @@ from typing import Dict
 import numpy as np
 import pandas as pd
 
-from parsers.base import AbstractParser
-from utils.annotations import Service
+from src.components.parser.base import AbstractParser
+from src.utils.annotations import Service
 
 
 @Service

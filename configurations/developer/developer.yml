@@ -1,6 +1,6 @@
-data_sources:
-  path: datasource/strategies
-  data_sources:
+datasources:
+  path: src/components/datasource/strategies
+  datasources:
     PrometheusDataSource:
       enabled: true
       url: "http://localhost:9090"
@@ -11,15 +11,23 @@ data_sources:
 
 parsers:
   enabled: true
-  path: parsers/strategies
+  path: src/components/parser/strategies
   parsers:
     TimeSeriesParser:
       enabled: true
 
-analyzer:
-  path: analyzer/strategies
+trainers:
+  enabled: true
+  path: src/components/trainer/strategies
+  trainers:
+    IsolationForestTrainer:
+      enabled: true
+
+analyzers:
+  enabled: true
+  path: src/components/analyzer/strategies
   analyzers:
-    TimeOfDayTrendAnalyzer:
+    IsolationForestAnalyzer:
       enabled: true
 
 

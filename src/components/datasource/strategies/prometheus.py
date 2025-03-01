@@ -3,7 +3,7 @@ from typing import List, Dict, Any
 from prometheus_api_client import PrometheusConnect
 
 from configurations.developer.models import PrometheusConfig
-from utils.annotations import Service
+from src.utils.annotations import Service
 
 
 @Service

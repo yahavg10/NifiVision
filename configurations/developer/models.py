@@ -11,6 +11,27 @@ class ParserSystemConfig(BaseModel):
     path: str
     parsers: Optional[Dict[str, ParserConfig]]
 
+
+class AnalyzerConfig(BaseModel):
+    enabled: bool
+
+
+class TrainerConfig(BaseModel):
+    enabled: bool
+
+
+class AnalyzerSystemConfig(BaseModel):
+    enabled: bool
+    path: str
+    analyzers: Optional[Dict[str, AnalyzerConfig]]
+
+
+class TrainerSystemConfig(BaseModel):
+    enabled: bool
+    path: str
+    trainers: Optional[Dict[str, TrainerConfig]]
+
+
 class TLSConfig(BaseModel):
     insecure_skip_verify: bool
 
@@ -24,9 +45,11 @@ class PrometheusConfig(BaseModel):
 
 class DataSourceSystemConfig(BaseModel):
     path: str
-    data_sources: Optional[Dict[str, PrometheusConfig]]
+    datasources: Optional[Dict[str, PrometheusConfig]]
 
 
 class AppConfig(BaseModel):
-    data_sources: DataSourceSystemConfig
+    datasources: DataSourceSystemConfig
     parsers: ParserSystemConfig
+    trainers: TrainerSystemConfig
+    analyzers: AnalyzerSystemConfig

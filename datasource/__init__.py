@@ -1,1 +1,1 @@
-from prometheus import PrometheusDataSource
+from datasource.strategies.prometheus import PrometheusDataSource

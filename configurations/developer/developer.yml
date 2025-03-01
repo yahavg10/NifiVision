@@ -1,13 +1,25 @@
-parser_system:
+data_sources:
+  path: datasource/strategies
+  data_sources:
+    PrometheusDataSource:
+      enabled: true
+      url: "http://localhost:9090"
+      query_timeout: 30s
+      query: sum by (job, component_name) (http_requests_total)
+      tls_config:
+        insecure_skip_verify: false
+
+parsers:
   enabled: true
+  path: parsers/strategies
   parsers:
-    templator:
+    TimeSeriesParser:
       enabled: true
 
-data_source:
-  prometheus:
-    url: http://localhost:9090
-    query_timeout: 30s
-    query: sum by (job, component_name) (http_requests_total)
-    tls_config:
-      insecure_skip_verify: false
+analyzer:
+  path: analyzer/strategies
+  analyzers:
+    TimeOfDayTrendAnalyzer:
+      enabled: true
+
+

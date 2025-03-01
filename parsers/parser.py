@@ -1,8 +1,10 @@
 from typing import List, Dict
 
 from parsers.base import AbstractParser
+from utils.annotations import Service
 
 
+@Service
 class Parser:
     def __init__(self):
         self.parsers: Dict[str, AbstractParser] = {}

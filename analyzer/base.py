@@ -4,6 +4,9 @@ from typing import List, Callable, Union
 
 class TrendAnalyzer(ABC):
     @abstractmethod
+    def train(self, timestamps: List[float], values: List[float]):
+        raise NotImplementedError
+
     def is_anomalous(
         self,
         timestamps: List[float],

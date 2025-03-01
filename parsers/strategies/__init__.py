@@ -1,1 +1,1 @@
-from templator import TemplateParser
+from TimeSeriesParser import TemplateParser

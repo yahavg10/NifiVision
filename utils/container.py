@@ -1,17 +1,15 @@
 import inspect
 from functools import wraps
-from typing import Callable, Optional, NoReturn, Any, List
+from typing import NoReturn, Any, List
 
 
 class IoCContainer:
     def __init__(self):
         self.services = {}
 
-    def register(self, cls, fn_init: Optional[Callable] = None, **kwargs) -> NoReturn:
+    def register(self, cls, service_instance, **kwargs) -> NoReturn:
         if getattr(cls, "_is_service", False):
             service_name = cls.__name__
-
-            service_instance = fn_init(**kwargs) if fn_init else cls(**kwargs)
 
             for attr_name in dir(service_instance):
                 method = getattr(service_instance, attr_name)

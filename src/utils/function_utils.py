@@ -6,6 +6,7 @@ from types import ModuleType
 from typing import List, Type, Any
 
 from src.utils import app_config
+from sklearn.tree import export_text
 
 logger = logging.getLogger(os.getenv("ENV"))
 
@@ -131,3 +132,17 @@ def initialize_components(path: str) -> List[Any]:
     enabled_instances_list = filter_enabled_instances(instances=class_instances, component_type=component_type_name)
     logger.info(f"Initialization complete: {len(enabled_instances_list)} enabled instances ready for use")
     return enabled_instances_list
+
+
+def print_model_details(trained_model, tree: bool = False):
+    if tree:
+        tree_details = export_text(trained_model.estimators_[0])
+        print(tree_details)
+    else:
+        print("Model Details:")
+        print(f"Contamination: {trained_model.contamination}")
+        print(f"Number of Estimators: {trained_model.n_estimators}")
+        print(f"Random State: {trained_model.random_state}")
+        print(f"Max Samples: {trained_model.max_samples}")
+        print(f"Max Features: {trained_model.max_features}")
+        print(f"Offset: {trained_model.offset_}")

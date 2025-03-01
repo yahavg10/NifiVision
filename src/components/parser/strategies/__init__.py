@@ -1,1 +1,1 @@
-from TimeSeriesParser import TemplateParser
+from PrometheusMetricsParser import TemplateParser

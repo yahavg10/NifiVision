@@ -1,31 +1,27 @@
+import logging
 from typing import Any
 
-import numpy as np
-from sklearn.metrics import classification_report
+import pandas as pd
 
 from src.components.analyzer.base import Analyzer
-
 from src.utils.annotations import Service
 
-import os
-import logging
-
-logger = logging.getLogger(os.getenv("ENV"))
+logger = logging.getLogger(__name__)
 
 
 @Service
 class IsolationForestAnalyzer(Analyzer):
-    def analyze(self, model: Any, X: np.ndarray):
-        if not hasattr(model, "predict"):
-            raise ValueError("Model must have a predict method")
+    def analyze(self, model: Any, df: pd.DataFrame) -> pd.DataFrame:
+        # Prepare data for prediction
+        X = df[['value']].values
 
-        logger.info("Analyzing model...")
-
-        # Predict labels (-1 for anomaly, 1 for normal)
+        # Predict anomalies (-1 for anomaly, 1 for normal)
         predictions = model.predict(X)
 
-        # Generate a simple classification report (assuming labels exist for demo)
-        true_labels = [1 if i % 10 else -1 for i in range(len(X))]  # Example labels
-        logger.info("Classification Report:\n%s", classification_report(true_labels, predictions))
+        # Add predictions to the DataFrame
+        df['anomaly'] = predictions == -1  # Convert -1 to True for anomaly
 
-        return predictions
+        num_anomalies = df['anomaly'].sum()
+        logger.info(f"Analysis completed. Total anomalies detected: {num_anomalies}")
+
+        return df

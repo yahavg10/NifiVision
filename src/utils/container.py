@@ -2,6 +2,8 @@ import inspect
 from functools import wraps
 from typing import NoReturn, Any, List
 
+from src.components.parser.parser import Parser
+
 
 class IoCContainer:
     def __init__(self):
@@ -21,9 +23,14 @@ class IoCContainer:
             self.services[service_name] = service_instance
 
     def get_service(self, service_name: str) -> Any:
-        for service in self.services.keys():
-            if service_name in service:
-                return self.services.get(service)
+        if "Parser" not in service_name:
+            for service in self.services.keys():
+                if service_name in service:
+                    return self.services.get(service)
+        if "Parser" in service_name:
+            parser = Parser()
+            parser.register_parsers([self.services.get(service) for service in self.services.keys() if service_name in service])
+            return parser
 
     def get_services(self, *service_names) -> List[Any]:
         services = [self.get_service(name) for name in service_names]

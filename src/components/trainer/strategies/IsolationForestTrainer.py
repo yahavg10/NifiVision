@@ -1,8 +1,14 @@
+import logging
+import os
+
 import numpy as np
+import pandas as pd
+from sklearn.ensemble import IsolationForest
 
 from src.components.trainer.base import ModelTrainer
 
 from src.utils.annotations import Service
+logger = logging.getLogger(os.getenv("ENV"))
 
 
 @Service
@@ -13,8 +19,8 @@ class IsolationForestTrainer(ModelTrainer):
         self.random_state = random_state
         self.model = None
 
-    def train(self, X: np.ndarray):
-        from sklearn.ensemble import IsolationForest
+    def train(self, df: pd.DataFrame):
+        X = df[['value']].values
 
         self.model = IsolationForest(
             contamination=self.contamination,
@@ -22,5 +28,5 @@ class IsolationForestTrainer(ModelTrainer):
             random_state=self.random_state,
         )
         self.model.fit(X)
-        print("Model trained successfully")
+        logger.debug("Model trained successfully")
         return self.model
